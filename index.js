@@ -8,7 +8,7 @@ var len = randomWord.word.length;
 var chances = 3;
 
 // console.log(randomWord.word);
-// console.log(randomWord.meta);
+// console.log(randomWord.meta.hints);
 
 var readline = readline.createInterface({
   input:  process.stdin,
@@ -18,9 +18,13 @@ var readline = readline.createInterface({
 readline.setPrompt('> ');
 
 readline.question('Hi there, what is your name?\n> ', function(str) {
-  console.log('Welcome ' + chalk.bold(str) + '! Let\'s play trivia as you learn some programming lingo :)');
+  console.log('Welcome ' + chalk.bold(str) + ', Let\'s play trivia as you learn some programming lingo :)');
   console.log('I have a random word: ' + chalk.red.bold(mask(randomWord.word)));
   console.log('Can you guess it? You got '+ chances +' chances to hack this buddy!');
+  console.log('A couple of hints:');
+  for(var i = 0; i < randomWord.meta.hints.length; i++) {
+    console.log(chalk.gray(i + 1 + '. ' +randomWord.meta.hints[i]));
+  }
   readline.prompt();
 });
 
@@ -47,12 +51,12 @@ readline.on('line', function(line) {
   } else {
     console.log('All your chances spent!')
     console.log('The word is ' + chalk.green(randomWord.word) + '. Grab some coffee to help refresh your mind :)');
-    console.log('Its definition: ' + randomWord.definition);
+    console.log('Its definition: ' + randomWord.meta.definition);
   }
 
   if (line === randomWord.word) {
     console.log('Congrats smart!');
-    console.log('Here too its definition: ' + randomWord.definition);
+    console.log('Here too its definition: ' + randomWord.meta.definition);
     readline.close();
     // readline.resume();
     // playAgain();
