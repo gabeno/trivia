@@ -18,13 +18,14 @@ var readline = readline.createInterface({
 readline.setPrompt('> ');
 
 readline.question('Hi there, what is your name?\n> ', function(str) {
-  console.log('Welcome ' + chalk.bold(str) + ', Let\'s play trivia as you learn some programming lingo :)');
-  console.log('I have a random word: ' + chalk.red.bold(mask(randomWord.word)));
-  console.log('Can you guess it? You got '+ chances +' chances to hack this buddy!');
-  console.log('A couple of hints:');
+  write('Welcome ' + chalk.underline(str) + ', Let\'s play trivia as you learn some programming lingo :)');
+  write('I have a random word: ' + chalk.bold(mask(randomWord.word)));
+  write('You got '+ chalk.underline(chances) +' chances to hack this buddy!');
+  write('A couple of hints:');
   for(var i = 0; i < randomWord.meta.hints.length; i++) {
-    console.log(chalk.gray(i + 1 + '. ' +randomWord.meta.hints[i]));
+    console.log(chalk.gray.italic(i + 1 + '. ' +randomWord.meta.hints[i]));
   }
+  write('Take a guess...');
   readline.prompt();
 });
 
@@ -35,28 +36,29 @@ readline.on('line', function(line) {
   if (guessesTaken < chances + 1) {
 
     if (/\d/.test(line)) {
-      console.log('You are a wild nerd! We only allow letters in these geek words! Try again...');
+      write('You are a wild nerd! We only allow letters in these geek words! Try again...', 1);
     } else if (line.length > len) {
-      console.log('Your creative power is amazing! Prune the extra letters you got there and try again...');
+      write('Your creative power is amazing! Prune the extra letters you got there and try again...', 1);
     } else if (line.length < len) {
-      console.log('Oh my, letters are for free so your word need not be short, keep trying...');
+      write('Oh my, letters are for free so your word need not be short, keep trying...', 1);
     } else if (line.length === len && line !== randomWord.word) {
       // check nearness
       var misses = compareStr(randomWord.word, line);
       var str = misses > 1 ? 's' : '';
-      console.log('You got '+ misses +' letter'+ str +' out of place. Please recheck!')
+      write('You got '+ misses +' letter'+ str +' out of place. Please recheck!', 1);
     }
     readline.prompt();
 
   } else {
-    console.log('All your chances spent!')
-    console.log('The word is ' + chalk.green(randomWord.word) + '. Grab some coffee to help refresh your mind :)');
-    console.log('Its definition: ' + randomWord.meta.definition);
+    write('All your chances spent!', 1)
+    write('The word is ' + chalk.green.bold(randomWord.word));
+    write('Definition: ' + chalk.blue(randomWord.meta.definition));
+    readline.close();
   }
 
   if (line === randomWord.word) {
-    console.log('Congrats smart!');
-    console.log('Here too its definition: ' + randomWord.meta.definition);
+    write('Congrats smart!');
+    write('Definition: ' + chalk.blue(randomWord.meta.definition));
     readline.close();
     // readline.resume();
     // playAgain();
@@ -86,4 +88,11 @@ function compareStr(str1, str2) {
   }
 
   return counter;
+}
+
+function write(str, alert) {
+  if (alert == 1)
+    return console.log(chalk.red(str));
+
+  return console.log(chalk.yellow(str));
 }
