@@ -1,0 +1,35 @@
+{
+  "name": "programming-trivia",
+  "version": "0.0.1",
+  "description": "A simple node cli word game",
+  "main": "index.js",
+  "repository":{
+    "type": "git",
+    "url": "https://github.com/gabeno/word-master"
+  },
+  "homepage":"http://github.com/gabeno/word-master",
+  "bugs":"https://github.com/gabeno/word-master/issues",
+  "directories": {},
+  "scripts": {},
+  "keywords": [
+    "cli",
+    "node",
+    "game",
+    "word",
+    "warnings",
+    "js",
+    "javascript"
+  ],
+  "engines": {
+    "node": ">=0.10.15"
+  },
+  "files": [
+    "index.js",
+    "util.js"
+  ],
+  "author": "gabeno",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "0.4.0"
+  }
+}
