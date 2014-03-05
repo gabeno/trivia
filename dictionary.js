@@ -1,17 +1,16 @@
 'use strict';
 
 var dictionary = {
-  password: {
-    definition: {},
+  closure: {
+    definition: "A function that refers to independent (free) variables.",
     hints: [
-      "It is a seven letter word",
-      "It is used a security feature in computer systems",
-      "Without it you can never even check your email"
+      "It helps to keep private stuff private.",
+      "Controls access to data within your code."
     ]
   },
 
   algorithm: {
-    definition: {},
+    definition: "A set of instructions (code) that make the computer do things.",
     hints: [
       "All software is based on this",
       "Makes a dumb computer to be smart",
@@ -20,7 +19,7 @@ var dictionary = {
   },
 
   stream: {
-    definition: {},
+    definition: "Continuous flow of data that can be manipulated asynchronously as data comes in (or out)",
     hints: [
       "It flows like a river",
       "Node hackers like it lots too!",
@@ -29,7 +28,7 @@ var dictionary = {
   },
 
   expression: {
-    definition: {},
+    definition: "Any valid set of literals, variables and operators that evaluate to a single value",
     hints: [
       "It evaluates to something",
       "For others, it is a mode to communicate."
@@ -37,16 +36,15 @@ var dictionary = {
   },
 
   variable: {
-    definition: {},
+    definition: "A container for storing informatioin. JS is loosely typed so a variable can hold different types",
     hints: [
-      "Think of it like a container...",
-      "It holds different values of different types at any given time",
+      "Think of it like a container that holds some value.",
       "Very handy when you need to keep something you later need in your program"
     ]
   },
 
   execution: {
-    definition: {},
+    definition: "The process by which a computer or performs the instructions of a computer program",
     hints: [
       "No no, not what the hangman does; At least not for you and I.",
       "This is what a program does as it runs.",
@@ -55,7 +53,7 @@ var dictionary = {
   },
 
   statement: {
-    definition: {},
+    definition: "A command that makes something happen.",
     hints: [
       "It is executed to make something happen",
       "We use it when we need to assign a value to some variable"
@@ -63,7 +61,7 @@ var dictionary = {
   },
 
   idempotent: {
-    definition: {},
+    definition: "An operation that has no additional effect if it is called more than once with the same input params",
     hints: [
       "It loves state!",
       "Nothing happens when you have it around in your code."
