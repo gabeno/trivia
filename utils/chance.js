@@ -16,7 +16,11 @@ function chance(str) {
   }
 
   chances = (Math.floor(dash/len) > 7) ? 4 : 3;
-  return chances;
+
+  return { 
+    chances: chances,
+    dashes : dash
+   };
 }
 
 module.exports = chance;
