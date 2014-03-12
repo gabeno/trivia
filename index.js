@@ -22,12 +22,13 @@ var readline = readline.createInterface({
 
 readline.setPrompt('> ');
 
-readline.question('Hi there, what is your name?\n> ', function(str) {
+readline.question('Hi there, your name please? ', function(str) {
   userName = str;
-  write('Welcome ' + chalk.underline(userName) + ', Let\'s play trivia as you learn some programming lingo :)');
+
+  write('Hi ' + chalk.bold(userName) + ', let\'s play trivia as you learn some programming lingo :)');
   write('I have a random word: ' + chalk.bold(maskedWord));
-  write('You got '+ chalk.underline(chances) +' chances to hack this buddy!');
-  write('A couple of hints:');
+  write('You got '+ chalk.bold(chances) +' chances to hack this buddy!');
+  write('Here are a couple of hints:');
   for(var i = 0; i < randomWord.meta.hints.length; i++) {
     console.log(chalk.gray.italic(i + 1 + '. ' +randomWord.meta.hints[i]));
   }
@@ -39,48 +40,57 @@ readline.on('line', function(line) {
   line = line.trim();
   guessesTaken = guessesTaken + 1;
 
-  if (guessesTaken < chances + 1) {
+  // make hay while sun shines :)
+  if (guessesTaken < chances) {
+    if (line !== randomWord.word) {
+      if (/\d/.test(line)) {
+        write('You are a wild nerd! We only allow letters in these geek words! Try again...', 1);
+      } 
+      else if (line.length > len) {
+        write('Your creative power is amazing! Prune the extra letters you got there ...', 1);
+      } 
+      else if (line.length < len) {
+        write('Oh my, letters are for free so your word need not be short, keep trying...', 1);
+      }
+      else if (line.indexOf('_') == 1) {
+        write('Oh no, you forgot to fill in a letter(s)!', 1);
+      }
+      else if (line.length === len && line !== randomWord.word) {
+        // check nearness
+        var misses = compareStr(randomWord.word, line);
+        var str = misses > 1 ? 's' : '';
 
-    if (/\d/.test(line)) {
-      write('You are a wild nerd! We only allow letters in these geek words! Try again...', 1);
-    } 
-    else if (line.length > len) {
-      write('Your creative power is amazing! Prune the extra letters you got there and try again...', 1);
-    } 
-    else if (line.length < len) {
-      write('Oh my, letters are for free so your word need not be short, keep trying...', 1);
+        if (misses >= Math.round(dashes / 2 + 1)) // set this based on mask fn
+          write('You are way off, I doubt you have the right word!', 1);
+        else if (misses < Math.round(dashes / 2 + 1))
+          write('You got '+ misses +' letter'+ str +' out of place. Please recheck!', 1);
+      }
+      readline.prompt();
+    } else {
+      write('Congrats '+ chalk.bold(userName) +'!');
+      displayWord(randomWord);
+      readline.close();
+      // readline.resume();
+      // playAgain();
+      // readline.prompt();
     }
-    else if (line.indexOf('_') == 1) {
-      write('Oh no, you forgot to fill in a letter(s)!', 1);
-    }
-    else if (line.length === len && line !== randomWord.word) {
-      // check nearness
-      var misses = compareStr(randomWord.word, line);
-      var str = misses > 1 ? 's' : '';
-
-      if (misses >= Math.round(dashes / 2 + 1)) // set this based on mask fn
-        write('You are way off, I doubt you have the right word!', 1);
-      else
-        write('You got '+ misses +' letter'+ str +' out of place. Please recheck!', 1);
-    }
-    readline.prompt();
-
-  } else {
-    write(userName + ', all your chances spent!', 1)
-    write('The word is ' + chalk.green.underline(randomWord.word));
-    write('Definition: ' + chalk.magenta(randomWord.meta.definition));
-    readline.close();
   }
 
-  if (line === randomWord.word) {
-    write('Congrats '+ userName +'!');
-    write('The word is ' + chalk.green.underline(randomWord.word));
-    write('Definition: ' + chalk.magenta(randomWord.meta.definition));
+  // Oops, lost opportunities!
+  if (guessesTaken == chances) {
+    if (line === randomWord.word) {
+      write('Congrats '+ chalk.bold(userName) +'!');
+    } else {
+      write(chalk.bold(userName) + ', all your chances spent!', 1);
+    }
+
+    displayWord(randomWord);
     readline.close();
     // readline.resume();
     // playAgain();
     // readline.prompt();
   }
+
 });
 
 /**
@@ -110,4 +120,14 @@ function write(str, alert) {
     return console.log(chalk.red(str));
 
   return console.log(chalk.yellow(str));
+}
+
+/**
+ * display word and its definition in the command line
+ * @param  {[Object]} word [Object with word and definition]
+ * @return {[Undefined]}
+ */
+function displayWord(word) {
+  write('The word is ' + chalk.green(word.word));
+  write('Definition: ' + chalk.magenta(word.meta.definition));
 }
