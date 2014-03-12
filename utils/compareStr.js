@@ -15,6 +15,8 @@ function compareStr(str1, str2) {
     if (str1[i] !== str2[i])
       nearness++;
   }
-  
+
   return nearness;
 }
+
+module.exports = compareStr;
