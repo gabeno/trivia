@@ -2,6 +2,8 @@
 
 This is a simple **node CLI** game which I have made in the process of teaching myself programming. I love JavaScript hence the bias for the node environment.
 
+![screenshot](trivia.png)
+
 ## Installing and playing
 
     mkdir myDir
@@ -14,8 +16,9 @@ This is a simple **node CLI** game which I have made in the process of teaching 
 This is a very basic game and would definitely do with some improvements. Feel free to open an issue.
 
 ## Change log
-- Wrote a better algorithm to obfuscate a word. [commit](https://github.com/gabeno/trivia/commit/2855ae5cd1edd4996337f595ead992d1751d266b)
-- Intuitively set the number of chances for a player based on the difficulty of the word. [commit](https://github.com/gabeno/trivia/commit/55227687fe463e6ef9cc3ae9684a62770bd802d5)
+
+- Wrote a better algorithm to obfuscate a word - [commit](https://github.com/gabeno/trivia/commit/2855ae5cd1edd4996337f595ead992d1751d266b)
+- Intuitively set the number of chances for a player based on the difficulty of the word - [commit](https://github.com/gabeno/trivia/commit/55227687fe463e6ef9cc3ae9684a62770bd802d5)
 
 ## Roadmap
 
