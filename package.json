@@ -10,7 +10,9 @@
   "homepage":"http://github.com/gabeno/word-master",
   "bugs":"https://github.com/gabeno/word-master/issues",
   "directories": {},
-  "scripts": {},
+  "scripts": {
+    "start": "node index"
+  },
   "keywords": [
     "cli",
     "node",
