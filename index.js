@@ -43,7 +43,7 @@ readline.on('line', function(line) {
   // make hay while sun shines :)
   if (guessesTaken < chances) {
     if (line !== randomWord.word) {
-      if (/\d/.test(line)) {
+      if (/[^a-zA-Z]/.test(line)) {
         write('You are a wild nerd! We only allow letters in these geek words! Try again...', 1);
       } 
       else if (line.length > len) {
@@ -66,13 +66,12 @@ readline.on('line', function(line) {
           write('You got '+ misses +' letter'+ str +' out of place. Please recheck!', 1);
       }
       readline.prompt();
-    } else {
+    }
+
+    if (line === randomWord.word) {
       write('Congrats '+ chalk.bold(userName) +'!');
       displayWord(randomWord);
       readline.close();
-      // readline.resume();
-      // playAgain();
-      // readline.prompt();
     }
   }
 
@@ -86,11 +85,12 @@ readline.on('line', function(line) {
 
     displayWord(randomWord);
     readline.close();
-    // readline.resume();
-    // playAgain();
-    // readline.prompt();
   }
 
+});
+
+readline.on('close', function() {
+  write('Thanks for playing ^_^');
 });
 
 /**
@@ -103,10 +103,12 @@ readline.on('line', function(line) {
   * prompt use with option to play another word
   * @return {[undefined]}
   */
-function playAgain() {
-  console.log('Would you like to play another word? y/n');
-  readline.pause();
-}
+// function playAgain() {
+//   // console.log('Would you like to play another word? y/n');
+//   readline.question('playAgain? ', function(str) {
+//     write(str);
+//   });
+// }
 
 /**
  * write outptut to the console
